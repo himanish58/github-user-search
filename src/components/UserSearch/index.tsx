@@ -16,13 +16,10 @@ const Index = () => {
 		},
 	});
 
-	const inputChangeHandler = useCallback(
-		(event: ChangeEvent<HTMLInputElement>): void => {
-			const { id, value } = event.target;
-			setState({ [id]: value });
-		},
-		[]
-	);
+	const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
+		const { id, value } = event.target;
+		setState({ [id]: value });
+	};
 
 	const searchClickHandler = useCallback(() => {
 		const payload = {
@@ -31,7 +28,7 @@ const Index = () => {
 			location: state.location,
 		};
 		setState({ showResults: true, payload });
-	}, []);
+	}, [state]);
 
 	return (
 		<>
