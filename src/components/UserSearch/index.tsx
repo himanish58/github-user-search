@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useCallback, memo } from 'react';
 import UseClassicState from '../../hooks/useClassicState';
 import SearchSection from './SearchSection';
 import UserList from './UserList';
@@ -16,19 +16,22 @@ const Index = () => {
 		},
 	});
 
-	const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>): void => {
-		const { id, value } = event.target;
-		setState({ [id]: value });
-	};
+	const inputChangeHandler = useCallback(
+		(event: ChangeEvent<HTMLInputElement>): void => {
+			const { id, value } = event.target;
+			setState({ [id]: value });
+		},
+		[]
+	);
 
-	const searchClickHandler = () => {
+	const searchClickHandler = useCallback(() => {
 		const payload = {
 			...state.payload,
 			skill: state.skill,
 			location: state.location,
 		};
 		setState({ showResults: true, payload });
-	};
+	}, []);
 
 	return (
 		<>
@@ -43,4 +46,4 @@ const Index = () => {
 	);
 };
 
-export default Index;
+export default memo(Index);

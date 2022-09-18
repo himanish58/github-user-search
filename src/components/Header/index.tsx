@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { Text } from '@chakra-ui/react';
 
 interface Props {
 	title: string;
 }
 
-const index: FC<Props> = ({ title }) => {
+const Index: FC<Props> = ({ title }) => {
 	return (
 		<Text
 			fontSize="6xl"
@@ -18,4 +18,4 @@ const index: FC<Props> = ({ title }) => {
 	);
 };
 
-export default index;
+export default memo(Index);

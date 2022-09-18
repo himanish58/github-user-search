@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, FC } from 'react';
+import React, { ChangeEvent, MouseEvent, FC, memo } from 'react';
 import { Stack, Input, Button } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 
@@ -47,4 +47,4 @@ const SearchSection: FC<Props> = ({
 	</Stack>
 );
 
-export default SearchSection;
+export default memo(SearchSection);

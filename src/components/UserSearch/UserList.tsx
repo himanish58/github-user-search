@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { VStack, Spinner, Text } from '@chakra-ui/react';
 import { useSearchUsersQuery } from '../../services/apiSlice';
 import UserListItem from './UserListItem';
@@ -47,4 +47,4 @@ const UserList: FC<Props> = ({ payload }) => {
 	);
 };
 
-export default React.memo(UserList);
+export default memo(UserList);

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, memo } from 'react';
 import { HStack, Image, VStack, Text, Button, Link } from '@chakra-ui/react';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 
@@ -36,4 +36,4 @@ const UserListItem: FC<Props> = ({ avatar_url, login, html_url }) => {
 	);
 };
 
-export default UserListItem;
+export default memo(UserListItem);
