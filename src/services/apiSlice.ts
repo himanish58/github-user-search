@@ -7,7 +7,7 @@ export const searchUsersApi = createApi({
 		prepareHeaders: (headers) => {
 			headers.set(
 				'Authorization',
-				process.env.REACT_APP_GITHUB_AUTH_TOKEN as string
+				(process.env.REACT_APP_GITHUB_AUTH_TOKEN as string) || ''
 			);
 			return headers;
 		},
