@@ -1,0 +1,12 @@
+{
+  "files": {
+    "main.js": "/github-user-search/static/js/main.80ab8c64.js",
+    "static/js/787.b7d4d1ca.chunk.js": "/github-user-search/static/js/787.b7d4d1ca.chunk.js",
+    "index.html": "/github-user-search/index.html",
+    "main.80ab8c64.js.map": "/github-user-search/static/js/main.80ab8c64.js.map",
+    "787.b7d4d1ca.chunk.js.map": "/github-user-search/static/js/787.b7d4d1ca.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.80ab8c64.js"
+  ]
+}
