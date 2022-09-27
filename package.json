@@ -1,7 +1,7 @@
 {
 	"name": "github-user-search",
 	"version": "0.1.0",
-	"homepage": "https://himanish58.github.io/github-user-search",
+	"homepage": ".",
 	"private": true,
 	"dependencies": {
 		"@chakra-ui/icons": "^2.0.9",
