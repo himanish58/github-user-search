@@ -2,6 +2,8 @@
 
 This is a small project to show github users based on their skill and location.
 
+Live Demo - https://funny-selkie-6b2b8b.netlify.app/
+
 ## Technologies Used -
 
 1. React
