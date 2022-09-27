@@ -10,7 +10,6 @@ const usePagination = (
 	paginationCallBack: Function,
 	options = defaultOptions
 ) => {
-	console.log({ paginationCallBack });
 	const observerRef = useRef<any>(null);
 	const observerCallback = useCallback(
 		(entries: any) => {
@@ -24,7 +23,6 @@ const usePagination = (
 
 	useEffect((): (() => void) => {
 		const observer = new IntersectionObserver(observerCallback, options);
-		console.log(observerRef.current);
 		observerRef.current && observer.observe(observerRef.current);
 		return () => observerRef.current && observer.unobserve(observerRef.current);
 	}, [observerCallback, options]);

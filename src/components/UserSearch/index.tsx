@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useCallback, memo } from 'react';
-import UseClassicState from '../../hooks/useClassicState';
+import useClassicState from '../../hooks/useClassicState';
 import SearchSection from './SearchSection';
 import UserList from './UserList';
 import { PER_PAGE_COUNT } from '../../constants';
 
 const Index = () => {
-	const [state, setState] = UseClassicState({
+	const [state, setState] = useClassicState({
 		skill: '',
 		location: '',
 		showResults: false,

@@ -1,6 +1,7 @@
 import React, { FC, memo } from 'react';
 import { VStack, Spinner, Text } from '@chakra-ui/react';
 import { useSearchUsersQuery } from '../../services/apiSlice';
+import usePagination from '../../hooks/usePagination';
 import UserListItem from './UserListItem';
 import { Payload } from '../../types/types';
 
@@ -12,6 +13,12 @@ const UserList: FC<Props> = ({ payload }) => {
 	const { data, isLoading, isError } = useSearchUsersQuery({
 		...payload,
 	});
+
+	const paginationHandler = () => {
+		console.log('hello world');
+	};
+
+	const paginationRef = usePagination(paginationHandler);
 
 	if (isLoading) {
 		return <Spinner color="teal" mt={40} />;
@@ -35,7 +42,7 @@ const UserList: FC<Props> = ({ payload }) => {
 
 	return (
 		<VStack spacing={4} maxWidth="600px">
-			{data?.items.map(({ login, avatar_url, html_url, id }, index) => (
+			{data?.items.map(({ login, avatar_url, html_url, id }) => (
 				<UserListItem
 					key={id}
 					avatar_url={avatar_url}
@@ -43,6 +50,7 @@ const UserList: FC<Props> = ({ payload }) => {
 					html_url={html_url}
 				/>
 			))}
+			<div ref={paginationRef}></div>
 		</VStack>
 	);
 };
