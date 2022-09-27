@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, memo } from 'react';
+import React, { ChangeEvent, useCallback, memo, MouseEvent } from 'react';
 import useClassicState from '../../hooks/useClassicState';
 import SearchSection from './SearchSection';
 import UserList from './UserList';
@@ -6,6 +6,7 @@ import {
 	PER_PAGE_COUNT,
 	DEFAULT_SORT_OPTION,
 	DEFAULT_ORDER_OPTION,
+	DEFAULT_PAGE_NUMBER,
 } from '../../constants';
 import { Payload } from '../../types/types';
 
@@ -20,6 +21,7 @@ const Index = () => {
 			per_page: PER_PAGE_COUNT,
 			sort: DEFAULT_SORT_OPTION,
 			order: DEFAULT_ORDER_OPTION,
+			page: DEFAULT_PAGE_NUMBER,
 		},
 	});
 
@@ -33,16 +35,36 @@ const Index = () => {
 			...state.payload,
 			skill: state.skill,
 			location: state.location,
+			page: DEFAULT_PAGE_NUMBER,
 		};
 		setState({ showResults: true, payload });
 	}, [state]);
 
 	const sortingHandler = useCallback(
 		(sort: string, order: string): void => {
-			const payload: Payload = { ...state.payload };
-			payload.sort = sort;
-			payload.order = order;
+			const payload: Payload = { ...state.payload, sort, order };
 			setState({ payload });
+		},
+		[state.payload, setState]
+	);
+
+	const pageChangeHandler = useCallback(
+		(event: MouseEvent<HTMLButtonElement>) => {
+			const { id } = event.target as HTMLButtonElement;
+			if (id === 'next') {
+				const payload: Payload = {
+					...state.payload,
+					page: state.payload.page + 1,
+				};
+				setState({ payload });
+			} else {
+				const payload: Payload = {
+					...state.payload,
+					page: state.payload.page - 1,
+				};
+				setState({ payload });
+			}
+			window.scrollTo({ top: 0, behavior: 'smooth' });
 		},
 		[state.payload, setState]
 	);
@@ -56,7 +78,11 @@ const Index = () => {
 				searchChangeHandler={inputChangeHandler}
 			/>
 			{state.showResults && (
-				<UserList payload={state.payload} sortingHandler={sortingHandler} />
+				<UserList
+					payload={state.payload}
+					sortingHandler={sortingHandler}
+					pageChangeHandler={pageChangeHandler}
+				/>
 			)}
 		</>
 	);

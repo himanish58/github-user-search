@@ -1,27 +1,26 @@
-import React, { FC, memo } from 'react';
-import { VStack, Spinner, Text } from '@chakra-ui/react';
+import React, { FC, memo, MouseEvent } from 'react';
+import { VStack, Spinner, Text, HStack, Button } from '@chakra-ui/react';
+import { ArrowLeftIcon, ArrowRightIcon } from '@chakra-ui/icons';
 import { useSearchUsersQuery } from '../../services/apiSlice';
-import usePagination from '../../hooks/usePagination';
 import UserListItem from './UserListItem';
 import CustomSelect from '../Common/CustomSelect';
-import { SORTING_OPTIONS } from '../../constants';
+import { SORTING_OPTIONS, PER_PAGE_COUNT } from '../../constants';
 import { Payload } from '../../types/types';
 
 interface Props {
 	payload: Payload;
 	sortingHandler: (sort: string, order: string) => void;
+	pageChangeHandler: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
-const UserList: FC<Props> = ({ payload, sortingHandler }) => {
+const UserList: FC<Props> = ({
+	payload,
+	sortingHandler,
+	pageChangeHandler,
+}) => {
 	const { data, isLoading, isError } = useSearchUsersQuery({
 		...payload,
 	});
-
-	const paginationHandler = () => {
-		console.log('hello world');
-	};
-
-	const paginationRef = usePagination(paginationHandler);
 
 	if (isLoading) {
 		return <Spinner color="teal" mt={40} />;
@@ -63,7 +62,26 @@ const UserList: FC<Props> = ({ payload, sortingHandler }) => {
 					html_url={html_url}
 				/>
 			))}
-			<div ref={paginationRef}></div>
+			<HStack>
+				<Button
+					id="previous"
+					colorScheme="teal"
+					size="md"
+					leftIcon={<ArrowLeftIcon />}
+					disabled={payload.page === 1}
+					onClick={pageChangeHandler}>
+					Prev
+				</Button>
+				<Button
+					id="next"
+					colorScheme="teal"
+					size="md"
+					rightIcon={<ArrowRightIcon />}
+					disabled={data.total_count <= PER_PAGE_COUNT * payload.page}
+					onClick={pageChangeHandler}>
+					Next
+				</Button>
+			</HStack>
 		</VStack>
 	);
 };

@@ -1,4 +1,4 @@
-export const PER_PAGE_COUNT = 10;
+export const PER_PAGE_COUNT = 20;
 
 export const SORTING_OPTIONS = [
 	{
@@ -29,3 +29,5 @@ export const SORTING_OPTIONS = [
 
 export const [DEFAULT_SORT_OPTION, DEFAULT_ORDER_OPTION] =
 	SORTING_OPTIONS[0].id.split('-');
+
+export const DEFAULT_PAGE_NUMBER = 1;
