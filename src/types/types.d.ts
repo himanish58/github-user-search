@@ -3,6 +3,8 @@ export type Payload = {
 	location: string;
 	per_page: number;
 	page?: number;
+	sort?: string;
+	order?: string;
 };
 
 export type User = {

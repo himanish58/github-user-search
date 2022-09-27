@@ -2,7 +2,12 @@ import React, { ChangeEvent, useCallback, memo } from 'react';
 import useClassicState from '../../hooks/useClassicState';
 import SearchSection from './SearchSection';
 import UserList from './UserList';
-import { PER_PAGE_COUNT } from '../../constants';
+import {
+	PER_PAGE_COUNT,
+	DEFAULT_SORT_OPTION,
+	DEFAULT_ORDER_OPTION,
+} from '../../constants';
+import { Payload } from '../../types/types';
 
 const Index = () => {
 	const [state, setState] = useClassicState({
@@ -13,6 +18,8 @@ const Index = () => {
 			skill: '',
 			location: '',
 			per_page: PER_PAGE_COUNT,
+			sort: DEFAULT_SORT_OPTION,
+			order: DEFAULT_ORDER_OPTION,
 		},
 	});
 
@@ -30,6 +37,16 @@ const Index = () => {
 		setState({ showResults: true, payload });
 	}, [state]);
 
+	const sortingHandler = useCallback(
+		(sort: string, order: string): void => {
+			const payload: Payload = { ...state.payload };
+			payload.sort = sort;
+			payload.order = order;
+			setState({ payload });
+		},
+		[state.payload, setState]
+	);
+
 	return (
 		<>
 			<SearchSection
@@ -38,7 +55,9 @@ const Index = () => {
 				searchClickHandler={searchClickHandler}
 				searchChangeHandler={inputChangeHandler}
 			/>
-			{state.showResults && <UserList payload={state.payload} />}
+			{state.showResults && (
+				<UserList payload={state.payload} sortingHandler={sortingHandler} />
+			)}
 		</>
 	);
 };

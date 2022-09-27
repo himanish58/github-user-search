@@ -3,13 +3,16 @@ import { VStack, Spinner, Text } from '@chakra-ui/react';
 import { useSearchUsersQuery } from '../../services/apiSlice';
 import usePagination from '../../hooks/usePagination';
 import UserListItem from './UserListItem';
+import CustomSelect from '../Common/CustomSelect';
+import { SORTING_OPTIONS } from '../../constants';
 import { Payload } from '../../types/types';
 
 interface Props {
 	payload: Payload;
+	sortingHandler: (sort: string, order: string) => void;
 }
 
-const UserList: FC<Props> = ({ payload }) => {
+const UserList: FC<Props> = ({ payload, sortingHandler }) => {
 	const { data, isLoading, isError } = useSearchUsersQuery({
 		...payload,
 	});
@@ -40,8 +43,18 @@ const UserList: FC<Props> = ({ payload }) => {
 		);
 	}
 
+	const onChangeHandler = (id: string): void => {
+		const [sort, order] = id.split('-');
+		sortingHandler(sort, order);
+	};
+
 	return (
 		<VStack spacing={4} maxWidth="600px">
+			<CustomSelect
+				onChange={onChangeHandler}
+				options={SORTING_OPTIONS}
+				disabled={!data?.items?.length}
+			/>
 			{data?.items.map(({ login, avatar_url, html_url, id }) => (
 				<UserListItem
 					key={id}

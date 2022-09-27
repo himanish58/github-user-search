@@ -14,8 +14,8 @@ export const searchUsersApi = createApi({
 	}),
 	endpoints: (builder) => ({
 		searchUsers: builder.query<Users, Payload>({
-			query: ({ skill, location, per_page, page = 1 }) =>
-				`?q=type:user language:"${skill}" location:"${location}"&per_page=${per_page}&page=${page}`,
+			query: ({ skill, location, per_page, page = 1, sort = '', order = '' }) =>
+				`?q=type:user language:"${skill}" location:"${location}"&per_page=${per_page}&page=${page}&sort=${sort}&order=${order}`,
 		}),
 	}),
 });
